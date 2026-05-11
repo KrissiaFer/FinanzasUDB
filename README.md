@@ -10,68 +10,7 @@ Sistema web de control de entradas y salidas financieras.
 - MySQL 8.x
 - Payara Server 7.2026.2
 
----
-
-## 1. Configurar la base de datos
-
-Abre MySQL y ejecuta el script:
-
-```sql
-SOURCE /ruta/al/proyecto/sql/schema.sql;
-```
-
-Esto crea la base `control_finanzas` con las tablas `usuarios`, `entradas` y `salidas`, e inserta el usuario de prueba:
-
-| Campo    | Valor    |
-|----------|----------|
-| Usuario  | admin    |
-| Contrasena | admin123 |
-
----
-
-## 2. Configurar la conexion a la BD
-
-Edita el archivo:
-`src/main/java/com/finanzas/util/ConexionDB.java`
-
-Modifica estos valores segun tu instalacion:
-```java
-private static final String URL = "jdbc:mysql://localhost:3306/control_finanzas?...";
-private static final String USER = "root";
-private static final String PASSWORD = "tu_contrasena";
-```
-
----
-
-## 3. Compilar y empaquetar
-
-Desde la raiz del proyecto ejecuta:
-
-```bash
-mvn clean package
-```
-
-Esto genera: `target/control-finanzas.war`
-
----
-
-## 4. Desplegar en Payara 7
-
-### Opcion A: Consola de administracion
-1. Inicia Payara: `payara7/bin/asadmin start-domain`
-2. Abre http://localhost:4848
-3. Ve a **Applications > Deploy**
-4. Selecciona el archivo `control-finanzas.war`
-5. Haz clic en **OK**
-
-### Opcion B: Linea de comandos
-```bash
-payara7/bin/asadmin deploy target/control-finanzas.war
-```
-
----
-
-## 5. Acceder al sistema
+Acceder al sistema
 
 Abre el navegador en:
 ```
@@ -146,5 +85,4 @@ control-finanzas/
 ## Notas de seguridad
 - Las contrasenas se almacenan con SHA-256 en MySQL (funcion `SHA2`)
 - Las sesiones expiran automaticamente en 60 minutos
-- Las rutas de facturas se guardan en la BD; los archivos en `/uploads/`
 - Se validan todos los campos requeridos en servidor
